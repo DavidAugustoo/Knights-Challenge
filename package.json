@@ -1,0 +1,61 @@
+{
+  "name": "knights-challenge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
+    "start": "node dist/shared/infra/http/server.js",
+    "dev": "ts-node-dev --inspect -r tsconfig-paths/register --poll --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts",
+    "typeorm": "node -r tsconfig-paths/register --require ts-node/register ./node_modules/typeorm/cli.js",
+    "test": "NODE_ENV=test jest --runInBand",
+    "lint": "eslint --fix --ext .ts,.jsx .",
+    "seed:admin": "ts-node-dev -r tsconfig-paths/register src/shared/infra/typeorm/seed/admin.ts",
+    "migration:run": "NODE_ENV=typeorm yarn typeorm migration:run -d src/shared/infra/typeorm",
+    "migration:run:test": "NODE_ENV=typeorm_test yarn typeorm migration:run -d src/shared/infra/typeorm"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DavidAugustoo/Knights-Challenge.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DavidAugustoo/Knights-Challenge/issues"
+  },
+  "homepage": "https://github.com/DavidAugustoo/Knights-Challenge#readme",
+  "dependencies": {
+    "@types/supertest": "^6.0.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "ts-alias": "^0.0.7",
+    "ts-node-dev": "^2.0.0",
+    "tsyringe": "^4.8.0",
+    "typeorm": "^0.3.20"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.24.1",
+    "@babel/core": "^7.24.4",
+    "@babel/node": "^7.23.9",
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.12.7",
+    "@types/swagger-ui-express": "^4.1.6",
+    "@typescript-eslint/eslint-plugin": "^7.7.1",
+    "@typescript-eslint/parser": "^7.7.1",
+    "babel-plugin-module-resolver": "^5.0.2",
+    "babel-plugin-transform-typescript-metadata": "^0.3.2",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-import-helpers": "^1.3.1",
+    "eslint-plugin-prettier": "^5.1.3",
+    "jest": "^29.7.0",
+    "prettier": "^3.2.5",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.4.5"
+  }
+}
