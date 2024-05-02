@@ -8,6 +8,7 @@ interface ICreateKnightDTO {
     attributes: Attribute;
     keyAttribute: string;
     weapons: Weapon[];
+    isDead?: boolean;
 }
 
 export { ICreateKnightDTO };
