@@ -1,27 +1,26 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // eslint-disable-next-line import/no-extraneous-dependencies
+
 import "reflect-metadata";
+import "express-async-errors";
 import express, { NextFunction, Request, Response } from "express";
 
-import { AppError } from "@shared/infra/http/errors/appError";
+import { AppError } from "@shared/infra/http/errors/AppError";
+
+import { errorHandler } from "./errors";
+import { router } from "./routes";
+
+import "../typeorm";
+
+import "@shared/container";
 
 const app = express();
 
 app.use(express.json());
 
-app.use(
-    (err: Error, request: Request, response: Response, next: NextFunction) => {
-        if (err instanceof AppError) {
-            return response.status(err.statusCode).json({
-                message: err.message,
-            });
-        }
+app.use(router);
 
-        return response.status(500).json({
-            status: "error",
-            message: `Internal server error - ${err.message}`,
-        });
-    },
-);
+app.use(errorHandler);
 
 export { app };
