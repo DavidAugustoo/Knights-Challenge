@@ -1,4 +1,5 @@
 import { ICreateKnightDTO } from "@modules/knights/dtos/ICreateKnightDTO";
+import { IUpdateKnightDTO } from "@modules/knights/dtos/IUpdateKnightDTO";
 import { IKnightsRepository } from "@modules/knights/repositories/IKnightsRepository";
 import { ObjectId } from "mongodb";
 import { MongoRepository } from "typeorm";
@@ -13,6 +14,7 @@ class KnightsRepository implements IKnightsRepository {
     constructor() {
         this.repository = dataSource.manager.getMongoRepository(Knight);
     }
+
     listAll(): Promise<Knight[]> {
         throw new Error("Method not implemented.");
     }
@@ -34,6 +36,16 @@ class KnightsRepository implements IKnightsRepository {
         const knight = await this.repository.findOneAndUpdate(
             { _id: new ObjectId(id) },
             { $set: { isDead: true } },
+            { returnDocument: "after" },
+        );
+
+        return knight.value;
+    }
+
+    async update(id: string, data: Partial<IUpdateKnightDTO>): Promise<Knight> {
+        const knight = await this.repository.findOneAndUpdate(
+            { _id: new ObjectId(id) },
+            { $set: data },
             { returnDocument: "after" },
         );
 
