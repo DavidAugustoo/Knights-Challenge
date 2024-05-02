@@ -17,7 +17,7 @@
 
 - [NodeJs](https://nodejs.org/en/)
 - [Express](https://expressjs.com/pt-br/)
-- [Mongoose](https://mongoosejs.com/)
+- [TypeORM](https://typeorm.io/)
 - [MongoDB](https://www.mongodb.com/)
 - [Swagger](https://swagger.io/)
 
@@ -33,7 +33,7 @@ Obs: Funcionalidades desmarcadas estão em andamento
 
 ## Descrição
 
-Mente Sã é um software projetado para ajudar profissionais a organizarem suas consultas e acompanhamentos com seus pacientes. Permitindo registro de profissionais (psicólogos, psiquiatras, neurologistas), bem como dos seus respectivos pacientes. Todas as sessões podem ser registradas e monitoradas através de um painel, que facilita o gerenciamento de múltiplas bases de dados e melhora sua eficiência como profissional.
+Knights Challenge é uma plataforma desenvolvida para oferecer facilidade na organização e categorização de heróis lendários. Projetada para entusiastas de aventuras épicas e batalhas mitológicas, o Knights Challenge permite que os usuários registrem e gerenciem uma variedade de heróis, cada um com suas próprias habilidades, armas e histórias de origem.
 
 ## Executando a API
 
