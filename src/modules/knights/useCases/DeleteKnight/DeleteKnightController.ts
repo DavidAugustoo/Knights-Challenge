@@ -12,7 +12,7 @@ class DeleteKnightController {
 
         const knight = await deleteKnightUseCase.execute({ id });
 
-        return response.status(201).json(knight);
+        return response.status(200).json(knight);
     }
 }
 

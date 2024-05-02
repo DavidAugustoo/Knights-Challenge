@@ -19,8 +19,6 @@ const errorHandler = (
     response: Response,
     next: NextFunction,
 ) => {
-    console.log(err);
-
     if (err instanceof AppError) {
         return handleAppError(err, response);
     }
@@ -30,7 +28,6 @@ const errorHandler = (
     }
 
     if (err instanceof MongoBulkWriteError || err instanceof MongoServerError) {
-        console.log("Fui chamado aqui");
         return handleMongoError(err, response);
     }
 

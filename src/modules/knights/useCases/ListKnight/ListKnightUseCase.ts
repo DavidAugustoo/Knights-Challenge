@@ -19,9 +19,13 @@ class ListKnightUseCase {
     async execute({ filter }: IRequest): Promise<Knight[]> {
         const filterIsDead = filter === "heros";
 
-        const knightList = this.knightsRepository.list(filterIsDead);
+        const knightList = await this.knightsRepository.list(filterIsDead);
 
-        const updatedKnightList = (await knightList).map((knight) => {
+        if (knightList.length === 0) {
+            return [];
+        }
+
+        const updatedKnightList = knightList.map((knight) => {
             const attack = calculateAttack(knight);
             const exp = calculateExperience(knight.birthday);
 

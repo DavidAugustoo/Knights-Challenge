@@ -14,7 +14,7 @@ class ListSpecificKnightController {
 
         const knight = await listSpecificKnightUseCase.execute({ id });
 
-        return response.status(201).json(knight);
+        return response.status(200).json(knight);
     }
 }
 

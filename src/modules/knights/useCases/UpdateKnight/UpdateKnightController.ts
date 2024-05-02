@@ -31,7 +31,7 @@ class UpdateKnightController {
             data: { nickname },
         });
 
-        return response.status(201).json(knight);
+        return response.status(200).json(knight);
     }
 }
 
