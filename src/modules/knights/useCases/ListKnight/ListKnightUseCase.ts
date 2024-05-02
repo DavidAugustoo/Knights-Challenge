@@ -5,6 +5,10 @@ import { calculateAttack } from "@utils/calculateAttack";
 import { calculateExperience } from "@utils/calculateExperience";
 import { inject, injectable } from "tsyringe";
 
+interface IRequest {
+    filter?: string;
+}
+
 @injectable()
 class ListKnightUseCase {
     constructor(
@@ -12,8 +16,10 @@ class ListKnightUseCase {
         private knightsRepository: IKnightsRepository,
     ) {}
 
-    async execute(): Promise<Knight[]> {
-        const knightList = this.knightsRepository.list();
+    async execute({ filter }: IRequest): Promise<Knight[]> {
+        const filterIsDead = filter === "heros";
+
+        const knightList = this.knightsRepository.list(filterIsDead);
 
         const updatedKnightList = (await knightList).map((knight) => {
             const attack = calculateAttack(knight);

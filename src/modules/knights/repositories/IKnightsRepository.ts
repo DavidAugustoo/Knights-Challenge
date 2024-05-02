@@ -3,7 +3,7 @@ import { Knight } from "../infra/typeorm/entities/Knight";
 
 interface IKnightsRepository {
     create(data: ICreateKnightDTO): Promise<Knight>;
-    list(): Promise<Knight[]>;
+    list(isDead: boolean): Promise<Knight[]>;
     delete(id: string): Promise<Knight | undefined>;
 }
 

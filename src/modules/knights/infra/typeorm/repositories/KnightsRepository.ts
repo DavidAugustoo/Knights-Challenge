@@ -13,6 +13,9 @@ class KnightsRepository implements IKnightsRepository {
     constructor() {
         this.repository = dataSource.manager.getMongoRepository(Knight);
     }
+    listAll(): Promise<Knight[]> {
+        throw new Error("Method not implemented.");
+    }
 
     async create(data: ICreateKnightDTO): Promise<Knight> {
         const knight = this.repository.create(data);
@@ -22,8 +25,9 @@ class KnightsRepository implements IKnightsRepository {
         return knight;
     }
 
-    async list(): Promise<Knight[]> {
-        return this.repository.find();
+    async list(isDead: boolean = false): Promise<Knight[]> {
+        const filter = { isDead };
+        return this.repository.find(filter);
     }
 
     async delete(id: string): Promise<Knight | undefined> {
