@@ -61,4 +61,7 @@ export class Knight {
     @IsArray({ message: shouldBeArray("weapons") })
     @ArrayMinSize(1)
     weapons: Weapon[];
+
+    @Column({ default: false })
+    isDead: boolean;
 }

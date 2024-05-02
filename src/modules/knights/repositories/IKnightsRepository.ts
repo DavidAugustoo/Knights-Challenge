@@ -4,6 +4,7 @@ import { Knight } from "../infra/typeorm/entities/Knight";
 interface IKnightsRepository {
     create(data: ICreateKnightDTO): Promise<Knight>;
     list(): Promise<Knight[]>;
+    delete(id: string): Promise<Knight | undefined>;
 }
 
 export { IKnightsRepository };
