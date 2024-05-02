@@ -1,5 +1,6 @@
-export const calculateExperience = (birthday: Date): number => {
-    const age = new Date().getFullYear() - birthday.getFullYear();
+export const calculateExperience = (birthday: Date | string): number => {
+    const birthdayDate = new Date(birthday).getFullYear();
+    const age = new Date().getFullYear() - birthdayDate;
 
     if (age < 7) return 0;
 

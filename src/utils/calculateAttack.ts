@@ -2,18 +2,20 @@ import { Knight } from "@modules/knights/infra/typeorm/entities/Knight";
 
 import { calculateModifier } from "./calculateModifier";
 
-export const calculateAttack = ({ keyAttribute, weapons }: Knight) => {
-    const modKeyAttr = calculateModifier(keyAttribute);
+export const calculateAttack = ({
+    attributes,
+    keyAttribute,
+    weapons,
+}: Knight) => {
+    const modKeyAttr = calculateModifier(attributes[keyAttribute]);
 
-    const equippedWeapon = weapons.find((weapon) => weapon.equipped);
+    const averageMod =
+        weapons.reduce(
+            (acc, weapon) => acc + (weapon.equipped ? weapon.mod : 0),
+            0,
+        ) / Math.max(1, weapons.filter((weapon) => weapon.equipped).length);
 
-    let attack = 10;
-
-    if (equippedWeapon) {
-        attack += equippedWeapon.mod;
-    }
-
-    attack += modKeyAttr;
+    const attack = 10 + averageMod + modKeyAttr;
 
     return attack;
 };

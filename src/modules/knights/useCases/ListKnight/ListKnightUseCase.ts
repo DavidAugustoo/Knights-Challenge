@@ -2,6 +2,7 @@
 import { Knight } from "@modules/knights/infra/typeorm/entities/Knight";
 import { IKnightsRepository } from "@modules/knights/repositories/IKnightsRepository";
 import { calculateAttack } from "@utils/calculateAttack";
+import { calculateExperience } from "@utils/calculateExperience";
 import { inject, injectable } from "tsyringe";
 
 @injectable()
@@ -15,10 +16,10 @@ class ListKnightUseCase {
         const knightList = this.knightsRepository.list();
 
         const updatedKnightList = (await knightList).map((knight) => {
-            // Calcular o ataque para o cavaleiro atual
             const attack = calculateAttack(knight);
+            const exp = calculateExperience(knight.birthday);
 
-            return { ...knight, attack };
+            return { ...knight, attack, exp };
         });
 
         return updatedKnightList;
