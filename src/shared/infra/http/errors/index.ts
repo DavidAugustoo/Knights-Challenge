@@ -1,7 +1,7 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextFunction, Request, Response } from "express";
-import { MongoBulkWriteError } from "mongodb";
+import { MongoBulkWriteError, MongoServerError } from "mongodb";
 import * as Yup from "yup";
 
 import { AppError, handleAppError } from "./AppError";
@@ -29,7 +29,8 @@ const errorHandler = (
         return handleValidationAppError(err, response);
     }
 
-    if (err instanceof MongoBulkWriteError) {
+    if (err instanceof MongoBulkWriteError || err instanceof MongoServerError) {
+        console.log("Fui chamado aqui");
         return handleMongoError(err, response);
     }
 
