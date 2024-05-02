@@ -19,6 +19,12 @@ class KnightsRepository implements IKnightsRepository {
         throw new Error("Method not implemented.");
     }
 
+    findById(id: string): Promise<Knight> {
+        const knight = this.repository.findOneBy({ _id: new ObjectId(id) });
+
+        return knight;
+    }
+
     async create(data: ICreateKnightDTO): Promise<Knight> {
         const knight = this.repository.create(data);
 
