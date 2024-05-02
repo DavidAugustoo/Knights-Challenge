@@ -1,6 +1,8 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextFunction, Request, Response } from "express";
 import { MongoBulkWriteError } from "mongodb";
+import * as Yup from "yup";
 
 import { AppError, handleAppError } from "./AppError";
 import { handleMongoError } from "./MongoError";
@@ -9,6 +11,7 @@ import {
     ValidationAppError,
     handleValidationAppError,
 } from "./ValidationAppError";
+import { handleYupError } from "./YupError";
 
 const errorHandler = (
     err: Error,
@@ -28,6 +31,10 @@ const errorHandler = (
 
     if (err instanceof MongoBulkWriteError) {
         return handleMongoError(err, response);
+    }
+
+    if (err instanceof Yup.ValidationError) {
+        return handleYupError(err, response);
     }
 
     return handleUnknownError(err, response);
