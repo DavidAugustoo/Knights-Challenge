@@ -9,27 +9,27 @@ export class Attribute {
     @ObjectIdColumn()
     _id: ObjectId;
 
-    @Column()
+    @Column({ default: 0 })
     @IsNumber({}, { message: shouldBeNumber("strength") })
     strength: number = 0;
 
-    @Column()
+    @Column({ default: 0 })
     @IsNumber({}, { message: shouldBeNumber("dexterity") })
     dexterity: number = 0;
 
-    @Column()
+    @Column({ default: 0 })
     @IsNumber({}, { message: shouldBeNumber("constitution") })
     constitution: number = 0;
 
-    @Column()
+    @Column({ default: 0 })
     @IsNumber({}, { message: shouldBeNumber("intelligence") })
     intelligence: number = 0;
 
-    @Column()
+    @Column({ default: 0 })
     @IsNumber({}, { message: shouldBeNumber("wisdom") })
     wisdom: number = 0;
 
-    @Column()
+    @Column({ default: 0 })
     @IsNumber({}, { message: shouldBeNumber("charisma") })
     charisma: number = 0;
 }

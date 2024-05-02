@@ -1,5 +1,6 @@
 import { ICreateKnightDTO } from "@modules/knights/dtos/ICreateKnightDTO";
 import { IKnightsRepository } from "@modules/knights/repositories/IKnightsRepository";
+import { ObjectId } from "mongodb";
 import { MongoRepository } from "typeorm";
 
 import { dataSource } from "@shared/infra/typeorm";
@@ -23,6 +24,16 @@ class KnightsRepository implements IKnightsRepository {
 
     async list(): Promise<Knight[]> {
         return this.repository.find();
+    }
+
+    async delete(id: string): Promise<Knight | undefined> {
+        const knight = await this.repository.findOneAndUpdate(
+            { _id: new ObjectId(id) },
+            { $set: { isDead: true } },
+            { returnDocument: "after" },
+        );
+
+        return knight.value;
     }
 }
 
