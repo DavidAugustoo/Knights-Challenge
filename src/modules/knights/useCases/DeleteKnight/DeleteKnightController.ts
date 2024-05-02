@@ -2,8 +2,6 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 
-import { AppError } from "@shared/infra/http/errors/AppError";
-
 import { DeleteKnightUseCase } from "./DeleteKnightUseCase";
 
 class DeleteKnightController {
@@ -13,10 +11,6 @@ class DeleteKnightController {
         const deleteKnightUseCase = container.resolve(DeleteKnightUseCase);
 
         const knight = await deleteKnightUseCase.execute({ id });
-
-        if (!knight) {
-            throw new AppError("Herói não encontrado", 404);
-        }
 
         return response.status(201).json(knight);
     }

@@ -26,7 +26,6 @@ export class Knight {
     _id: ObjectId;
 
     @Column()
-    @Index({ unique: true })
     @IsDefined({ message: required("name") })
     @IsNotEmpty({ message: notEmpty("name") })
     @IsString({ message: shouldBeString("name") })
