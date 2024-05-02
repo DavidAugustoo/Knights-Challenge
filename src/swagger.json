@@ -1,0 +1,571 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Knights-Challenge Documentation",
+        "description": "A API do Knights-Challenge é uma plataforma para cadastrar e gerenciar heróis, permitindo aos usuários adicionar, editar e listar heróis, armas e atributos.",
+        "version": "1.0.0",
+        "contact": {
+            "email": "davidribeiro086@gmail.com"
+        }
+    },
+    "paths": {
+        "/knights": {
+            "post": {
+                "tags": [
+                    "Knight"
+                ],
+                "summary": "Criar um Cavaleiro",
+                "description": "Criar um novo Cavaleiro",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Knight"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/Knight"
+                                },
+                                "example": {
+                                    "name": "Bruce Benner",
+                                    "nickname": "hulk",
+                                    "birthday": "2024-05-01",
+                                    "weapons": [
+                                        {
+                                            "name": "sword",
+                                            "mod": 3,
+                                            "attr": "strength",
+                                            "equipped": false
+                                        }
+                                    ],
+                                    "attributes": {
+                                        "strength": 0,
+                                        "dexterity": 0,
+                                        "constitution": 0,
+                                        "intelligence": 0,
+                                        "wisdom": 0,
+                                        "charisma": 0
+                                    },
+                                    "keyAttribute": "strength"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro de Validação / Formato Inválido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Erro de Validação": {
+                                        "value": {
+                                            "message": [
+                                                "Nome da arma não pode estar vazio",
+                                                "Apelido não pode estar vazio",
+                                                "Nome não pode estar vazio",
+                                                "Data de nascimento é obrigatória",
+                                                "Data de nascimento deve ser uma data válida",
+                                                "Força deve ser um número",
+                                                "Destreza deve ser um número",
+                                                "Constituição deve ser um número",
+                                                "Inteligência deve ser um número",
+                                                "Sabedoria deve ser um número",
+                                                "Carisma deve ser um número",
+                                                "keyAttribute não pode estar vazio",
+                                                "Mod deve ser um número",
+                                                "Attr não pode estar vazio",
+                                                "Equipped deve ser um booleano",
+                                                "Formato inválido, remova ou atualize as propriedades se necessário."
+                                            ]
+                                        }
+                                    },
+                                    "Formato Inválido": {
+                                        "value": {
+                                            "message": "Formato inválido, remova ou atualize as propriedades se necessário."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Já Existe",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Já Existe": {
+                                        "value": {
+                                            "message": "Já existe um registro com esses dados."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Knight"
+                ],
+                "summary": "Listar Cavaleiros",
+                "description": "Listar todos os Cavaleiros ou filtrar por heróis.",
+                "parameters": [
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "description": "Filtrar por heróis",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "heróis"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Knight"
+                                    }
+                                },
+                                "examples": {
+                                    "Cavaleiro Único": {
+                                        "value": [
+                                            {
+                                                "_id": "6633b6ff021034b7817b65ca",
+                                                "name": "Bruce Benner",
+                                                "nickname": "hulk",
+                                                "birthday": "2024-05-01",
+                                                "attributes": {
+                                                    "strength": 0,
+                                                    "dexterity": 0,
+                                                    "constitution": 0,
+                                                    "intelligence": 0,
+                                                    "wisdom": 0,
+                                                    "charisma": 0
+                                                },
+                                                "keyAttribute": "strength",
+                                                "weapons": [
+                                                    {
+                                                        "name": "sword",
+                                                        "mod": 3,
+                                                        "attr": "strength",
+                                                        "equipped": false
+                                                    }
+                                                ],
+                                                "isDead": false,
+                                                "attack": 8,
+                                                "exp": 0
+                                            }
+                                        ]
+                                    },
+                                    "Lista Vazia": {
+                                        "value": []
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requisição Inválida"
+                    }
+                }
+            }
+        },
+        "/knights/{id}": {
+            "get": {
+                "tags": [
+                    "Knight"
+                ],
+                "summary": "Obter Cavaleiro Específico",
+                "description": "Obter detalhes de um Cavaleiro específico por ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do Cavaleiro a ser recuperado",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/Knight"
+                                },
+                                "example": {
+                                    "_id": "6633b6ff021034b7817b65ca",
+                                    "name": "Bruce Benner",
+                                    "nickname": "hulk",
+                                    "birthday": "2024-05-01",
+                                    "attributes": {
+                                        "strength": 0,
+                                        "dexterity": 0,
+                                        "constitution": 0,
+                                        "intelligence": 0,
+                                        "wisdom": 0,
+                                        "charisma": 0
+                                    },
+                                    "keyAttribute": "strength",
+                                    "weapons": [
+                                        {
+                                            "name": "sword",
+                                            "mod": 3,
+                                            "attr": "strength",
+                                            "equipped": false
+                                        }
+                                    ],
+                                    "isDead": false,
+                                    "attack": 8,
+                                    "exp": 0
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Não Encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "message": "Herói não encontrado"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Knight"
+                ],
+                "summary": "Excluir Cavaleiro Específico",
+                "description": "Excluir um Cavaleiro específico por ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do Cavaleiro a ser excluído",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/Knight"
+                                },
+                                "example": {
+                                    "_id": "66336c68d543f007c067d402",
+                                    "name": "Bruce Benner",
+                                    "nickname": "hulk",
+                                    "birthday": "2024-05-01",
+                                    "attributes": {
+                                        "strength": 0,
+                                        "dexterity": 0,
+                                        "constitution": 0,
+                                        "intelligence": 0,
+                                        "wisdom": 0,
+                                        "charisma": 0
+                                    },
+                                    "keyAttribute": "strength",
+                                    "weapons": [
+                                        {
+                                            "name": "sword",
+                                            "mod": 3,
+                                            "attr": "strength",
+                                            "equipped": false
+                                        },
+                                        {
+                                            "name": "sword",
+                                            "mod": 3,
+                                            "attr": "strength",
+                                            "equipped": false
+                                        }
+                                    ],
+                                    "isDead": false,
+                                    "attack": 8,
+                                    "exp": 0
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Não Encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "message": "Herói não encontrado"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Knight"
+                ],
+                "summary": "Atualizar Cavaleiro Específico",
+                "description": "Atualizar um Cavaleiro específico por ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do Cavaleiro a ser atualizado",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nickname": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "nickname"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/Knight"
+                                },
+                                "example": {
+                                    "_id": "66336c68d543f007c067d402",
+                                    "name": "Bruce Benner",
+                                    "nickname": "homem de ferro",
+                                    "birthday": "2024-05-01",
+                                    "attributes": {
+                                        "strength": 0,
+                                        "dexterity": 0,
+                                        "constitution": 0,
+                                        "intelligence": 0,
+                                        "wisdom": 0,
+                                        "charisma": 0
+                                    },
+                                    "keyAttribute": "strength",
+                                    "weapons": [
+                                        {
+                                            "name": "sword",
+                                            "mod": 3,
+                                            "attr": "strength",
+                                            "equipped": false
+                                        },
+                                        {
+                                            "name": "sword",
+                                            "mod": 3,
+                                            "attr": "strength",
+                                            "equipped": false
+                                        }
+                                    ],
+                                    "isDead": false,
+                                    "attack": 8,
+                                    "exp": 0
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requisição Inválida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Nickname Obrigatório": {
+                                        "value": {
+                                            "message": "Nickname é obrigatório"
+                                        }
+                                    },
+                                    "Dados Duplicados": {
+                                        "value": {
+                                            "message": "Já existe um registro com esses dados."
+                                        }
+                                    },
+                                    "Atualização Inválida": {
+                                        "value": {
+                                            "message": "Apenas a alteração do nickname é permitida. Por favor, remova ou atualize outras propriedades se necessário."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Knight": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "nickname": {
+                    "type": "string"
+                },
+                "birthday": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "weapons": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "mod": {
+                                "type": "integer"
+                            },
+                            "attr": {
+                                "type": "string"
+                            },
+                            "equipped": {
+                                "type": "boolean"
+                            }
+                        },
+                        "required": [
+                            "name",
+                            "mod",
+                            "attr",
+                            "equipped"
+                        ]
+                    }
+                },
+                "attributes": {
+                    "type": "object",
+                    "properties": {
+                        "strength": {
+                            "type": "integer"
+                        },
+                        "dexterity": {
+                            "type": "integer"
+                        },
+                        "constitution": {
+                            "type": "integer"
+                        },
+                        "intelligence": {
+                            "type": "integer"
+                        },
+                        "wisdom": {
+                            "type": "integer"
+                        },
+                        "charisma": {
+                            "type": "integer"
+                        }
+                    },
+                    "required": [
+                        "strength",
+                        "dexterity",
+                        "constitution",
+                        "intelligence",
+                        "wisdom",
+                        "charisma"
+                    ]
+                },
+                "keyAttribute": {
+                    "type": "string"
+                }
+            },
+            "example": {
+                "name": "Bruce Benner",
+                "nickname": "hulk",
+                "birthday": "2024-05-01",
+                "weapons": [
+                    {
+                        "name": "sword",
+                        "mod": 3,
+                        "attr": "strength",
+                        "equipped": false
+                    }
+                ],
+                "attributes": {
+                    "strength": 0,
+                    "dexterity": 0,
+                    "constitution": 0,
+                    "intelligence": 0,
+                    "wisdom": 0,
+                    "charisma": 0
+                },
+                "keyAttribute": "strength"
+            }
+        }
+    }
+}

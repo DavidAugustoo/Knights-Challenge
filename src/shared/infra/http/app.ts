@@ -4,10 +4,10 @@
 
 import "reflect-metadata";
 import "express-async-errors";
-import express, { NextFunction, Request, Response } from "express";
+import express from "express";
+import swaggerUi from "swagger-ui-express";
 
-import { AppError } from "@shared/infra/http/errors/AppError";
-
+import swaggerFile from "../../../swagger.json";
 import { errorHandler } from "./errors";
 import { router } from "./routes";
 
@@ -16,6 +16,8 @@ import "../typeorm";
 import "@shared/container";
 
 const app = express();
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.use(express.json());
 
