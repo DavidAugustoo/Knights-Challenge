@@ -1,0 +1,27 @@
+version: "3.7"
+
+services:
+  database:
+    image: mongo
+    container_name: mongodb
+    restart: always
+    ports: 
+      - 27017:27017
+    volumes:
+      - mongodb_data:/data/db
+
+  app: 
+    build: .
+    container_name: knights_challenge
+    ports: 
+      - 3333:3333
+    volumes:
+      - .:/usr/app
+    environment:
+      - MONGODB_URI=mongodb://database:27017/knights_challenge
+    depends_on:
+      - database
+
+volumes:
+  mongodb_data:
+    driver: local
