@@ -17,6 +17,7 @@ class CreateKnightController {
             attributes,
             keyAttribute,
             weapons,
+            isDead: false,
         });
 
         return response.status(201).json(knight);
