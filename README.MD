@@ -20,6 +20,8 @@
 - [TypeORM](https://typeorm.io/)
 - [MongoDB](https://www.mongodb.com/)
 - [Swagger](https://swagger.io/)
+- [Docker](https://www.docker.com/)
+- [AWS](https://aws.amazon.com/)
 
 ## Funcionalidades
 Obs: Funcionalidades desmarcadas estão em andamento
@@ -77,7 +79,9 @@ http://localhost:8080/api-docs/
 
 ## Suporte
 
+- Documentação da API - [Acessar Swagger](https://k5yddrbtai.us-east-2.awsapprunner.com/api-docs/)
 - Documentação do Projeto - [Acessar PDF](https://drive.google.com/file/d/1JCZr8zUiRIucWH-I_At-I2o9o0-zZvSy/view?usp=sharing)
+- Acessar Collection Insomnia - [Acessar Insomnia](https://drive.google.com/file/d/1ivrShYNGOug4g-xI4lk8OOIoUKitokdb/view?usp=sharing)
 
 ## Contato
 
