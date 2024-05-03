@@ -1,15 +1,19 @@
 import { DataSource } from "typeorm";
 
+import 'dotenv/config'
+
 export const dataSource = new DataSource({
     type: "mongodb",
-    host: "localhost",
+    host: process.env.MONGO_HOST,
     port: 27017,
-    username: null,
-    password: null,
+    username: process.env.MONGO_USERNAME,
+    password: process.env.MONGO_PASSWORD,
     database: "knights_challenge",
     useUnifiedTopology: true,
     useNewUrlParser: true,
     synchronize: true,
+    ssl: true,
+    authSource: "admin",
     entities: ["./src/modules/**/entities/*.ts"],
 });
 
