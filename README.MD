@@ -65,11 +65,14 @@ $ npm install
 ##### Configure as variáveis de ambiente
 ```bash
 PORT=8080
+MONGO_HOST=example_cluster_mongodb
+MONGO_USERNAME=example_user
+MONGO_PASSWORD=example_user_password
 ```
 
 ##### Inicie o servidor
 ```bash
-$ npm run start-dev
+$ npm run dev
 ```
 
 ##### Acesse a documentação
